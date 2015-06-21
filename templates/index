@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Test site!</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet"  type="text/css" href="css/index.css"/>
+	<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+System ready.
+</body>
+</html>
