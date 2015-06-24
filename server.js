@@ -4,7 +4,8 @@ var 	http = 		require('http'),
 	strftime = 	require('strftime'),
 	fs = 		require('fs'),
 	path = 		require('path'),
-	file = 		require('./lib/contentType')
+	file = 		require('./lib/contentType'),
+	worker = 	require('./lib/worker')
 ;
 
 var httpCallback = function(request,response){
@@ -28,29 +29,10 @@ var httpCallback = function(request,response){
 			});
 			return;
 		}
-		
-		// Determine what the worker file name should look like (assuming one exists)
-		//var workerFileName = incoming.pathname.replace(/\\/g,',');
-		//workerFileName = workerFileName.substring(workerFileName.lastIndexOf('/')+1, workerFileName.lastIndexOf('.'));
-		//workerFileName = workerFileName+'.js';
 
-		var workerFileName = incoming.pathname+'.js';
-
-		try{
-			// Inject worker data into template file
-			var jobController = require('./workers/'+workerFileName);
-			try{
-				var worker = jobController.worker;
-				worker.build(data);
-				data = worker.doWork();
-			}catch(wError){
-				console.log('An error occurred while the worker was applying the template.');
-				console.log(wError.stack);
-			}
-		}catch(error){
-			// If the require fails, it means no template file exists. This isn't really a problem.
-			// We will just end up retuning the unchanged file.
-		}
+		var workman = worker.worker;
+		workman.build(data,incoming.pathname);
+		data = workman.doWork();
 
 		// Determine the content type of the file we are responding with
 		var contentType = file.contentType(incoming.pathname);
