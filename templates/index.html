@@ -4,11 +4,22 @@
 	<title>Test site!</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet"  type="text/css" href="css/index.css"/>
-	<script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 System ready.
 <br/><br/>
 {{exampleMarker}}
+<br/><br/>
+The next line displays GET data!<br/>
+{{getData}}
+<br/><br/>
+The next line displays POST date!</br/>
+{{postData}}
+<br/><br/>
+<form method="POST" action="index.html?object=tree&color=green">
+	testPost1: <input type="text" name="testPost1" value="{{testPost1}}"/><br/>
+	testPost2: <input type="text" name="testPost2" value="{{testPost2}}"/><br/>
+	<input type="submit" value="Sent Test Request"/>
+</form>
 </body>
 </html>
